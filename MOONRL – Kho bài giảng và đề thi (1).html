@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MOONRL – Kho bài giảng và đề thi</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌙%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600&family=Lora:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F8F7;--surface:#fff;--ink:#16303D;--muted:#5E7783;--line:#DCE8E6;--sea:#2F6F7E;--on-sea:#fff;--foam:#DCEEEB;--moon:#F1DFA4;--moon-ink:#5A4A12;--rose:#C4575F;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1C26;--surface:#142A36;--ink:#E6F0EE;--muted:#93AAB3;--line:#24404D;--sea:#7CC4C0;--on-sea:#0D1C26;--foam:#1C3A46;--moon-ink:#F1DFA4;--rose:#E58A90}}
+:root[data-theme="dark"]{--bg:#0D1C26;--surface:#142A36;--ink:#E6F0EE;--muted:#93AAB3;--line:#24404D;--sea:#7CC4C0;--on-sea:#0D1C26;--foam:#1C3A46;--moon-ink:#F1DFA4;--rose:#E58A90}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.6 'Be Vietnam Pro',system-ui,sans-serif}
+h1,h2,h3{font-family:'Lora',Georgia,serif;font-weight:600;margin:0;line-height:1.3}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+svg.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);padding:8px 14px;border-radius:999px;font-weight:500;font-size:14px;transition:background .2s}
+.btn:hover{background:var(--foam)}
+.btn.primary{background:var(--sea);color:var(--on-sea);border-color:transparent}.btn.primary:hover{filter:brightness(1.1)}
+.btn.moon{background:var(--moon);color:#4a3d0e;border-color:transparent}
+
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:-1}
+.bar{display:flex;align-items:center;gap:14px;height:62px}
+.logo{display:flex;align-items:center;gap:10px;background:none;border:0;padding:0}
+.logo b{font:600 21px 'Lora',serif;letter-spacing:.04em}
+.logo small{display:block;font-size:11px;color:var(--muted);line-height:1;margin-top:2px}
+.mk{width:34px;height:34px;border-radius:50%;background:linear-gradient(160deg,#F7ECC0,#E8D18A);position:relative;overflow:hidden;box-shadow:0 0 14px #f1dfa488}
+.mk::after{content:"";position:absolute;left:-2px;right:-2px;bottom:-9px;height:20px;background:#2F6F7E;border-radius:50% 50% 0 0/60% 60% 0 0;box-shadow:0 -4px 0 -1px #5FA8A3}
+nav{display:flex;gap:2px;margin-left:12px}
+nav a{padding:6px 11px;border-radius:999px;color:var(--muted);text-decoration:none;font-size:14px;position:relative;cursor:pointer}
+nav a:hover,nav a.on{background:var(--foam);color:var(--ink)}
+nav a i{position:absolute;top:-2px;right:-4px;font-style:normal;font-size:10px;background:var(--rose);color:#fff;border-radius:99px;padding:0 6px}
+.sp{margin-left:auto;display:flex;align-items:center;gap:8px}
+.pts{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--moon);color:#4a3d0e;font-weight:600;font-size:13px}
+.ic{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center}
+
+.hero{background:linear-gradient(180deg,#14394A 0%,#2F6F7E 62%,#6DB3AC 100%);color:#fff;position:relative;overflow:hidden;padding:54px 0 96px}
+.hero .wrap{position:relative;z-index:2}
+.hero h1{font-size:clamp(26px,4.4vw,40px);max-width:560px}
+.hero p{max-width:480px;color:#D3E8E5;margin:12px 0 22px}
+.moon{position:absolute;right:max(24px,12%);top:34px;width:112px;height:112px;border-radius:50%;background:radial-gradient(circle at 36% 34%,#FFF8DC,#F1DFA4 62%,#DCC57F);box-shadow:0 0 70px 18px #f1dfa44d}
+.moon::after{content:"";position:absolute;left:50%;top:128%;width:70px;height:130px;margin-left:-35px;background:repeating-linear-gradient(180deg,#f1dfa4aa 0 3px,transparent 3px 11px);filter:blur(1.5px);mask:linear-gradient(#000,transparent);-webkit-mask:linear-gradient(#000,transparent);animation:shimmer 5s ease-in-out infinite}
+@keyframes shimmer{50%{transform:scaleX(1.25);opacity:.6}}
+.wave{position:absolute;bottom:-1px;left:0;width:100%;height:70px}.wave path{fill:var(--bg)}
+.search{display:flex;align-items:center;gap:10px;background:#fff;color:#16303D;border-radius:999px;padding:6px 8px 6px 18px;max-width:520px;box-shadow:0 8px 28px #0a283340}
+.search input{flex:1;border:0;outline:0;background:none;min-width:0;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;align-items:center}
+.chip{border:1px solid #ffffff55;background:#ffffff1c;color:#fff;border-radius:999px;padding:5px 14px;font-size:13px}
+.chip.on{background:var(--moon);color:#4a3d0e;border-color:transparent;font-weight:600}
+
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);padding:6px 0 14px;flex-wrap:wrap}
+.crumb button{border:0;background:none;color:var(--sea);padding:0;font-weight:500}
+.tag{background:var(--foam);color:var(--ink);border-radius:999px;padding:1px 10px;font-size:12px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start}
+.head{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;margin-bottom:14px}
+.tabs{display:flex;background:var(--foam);padding:4px;border-radius:999px}
+.tabs button{border:0;background:none;padding:6px 15px;border-radius:999px;font-size:14px;color:var(--muted)}
+.tabs button.on{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 1px 4px #0a283318}
+.card{display:flex;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}
+.thumb{width:92px;min-height:92px;border-radius:14px;background:linear-gradient(170deg,var(--foam),color-mix(in srgb,var(--sea) 30%,var(--foam)));display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none;color:var(--ink)}
+.thumb b{font:600 30px/1 'Lora',serif}.thumb span{font-size:11px;color:var(--muted);margin-top:4px}
+.card h3{font-size:16.5px;cursor:pointer;margin:4px 0 6px}.card h3:hover{color:var(--sea)}
+.meta{font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 14px}
+.card p{margin:6px 0 10px;font-size:13.5px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.foot .st{display:flex;gap:14px}.foot span{display:inline-flex;gap:5px;align-items:center}
+.like{border:0;background:none;color:var(--muted);padding:6px;border-radius:50%}.like.on{color:var(--rose)}.like.on svg{fill:currentColor}
+.badge{display:inline-block;font-size:11.5px;font-weight:600;padding:1px 9px;border-radius:99px;background:var(--moon);color:#4a3d0e;margin-right:6px}
+.empty{text-align:center;padding:44px 20px;border:1px dashed var(--line);border-radius:18px;color:var(--muted)}
+
+aside .box{background:var(--surface);border:1px solid var(--line);border-radius:18px;margin-bottom:16px;overflow:hidden}
+aside h3{font-size:16px;padding:14px 16px 8px}
+.gl{max-height:430px;overflow:auto;padding:0 8px 8px}
+.gl button{width:100%;display:flex;justify-content:space-between;align-items:center;border:0;background:none;padding:8px 10px;border-radius:10px;font-size:14px;text-align:left}
+.gl button:hover{background:var(--foam)}.gl button.on{background:var(--sea);color:var(--on-sea)}
+.gl small{font-size:12px;opacity:.75}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 16px}
+.stats div{background:var(--foam);border-radius:12px;padding:10px;text-align:center}.stats b{display:block;font:600 22px 'Lora',serif}.stats span{font-size:12px;color:var(--muted)}
+.tip{background:var(--foam);border-radius:18px;padding:14px 16px;font-size:13.5px;color:var(--muted)}.tip b{color:var(--ink)}
+
+footer{margin-top:44px;background:#0F2A38;color:#9FB6BD;padding:30px 0;font-size:13px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}footer b{color:#fff;font-family:'Lora',serif;font-size:18px}
+
+.fab{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:10px;z-index:25}
+.fab .ic{width:48px;height:48px;background:var(--sea);color:var(--on-sea);border:0;box-shadow:0 6px 18px #0a283340;text-decoration:none}
+.chat{position:fixed;right:18px;bottom:calc(150px + env(safe-area-inset-bottom,0px));width:min(320px,calc(100vw - 36px));height:380px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:0 14px 40px #0a283345;display:none;flex-direction:column;overflow:hidden;z-index:25}
+.chat.open{display:flex}.chat .t{background:linear-gradient(135deg,#14394A,#2F6F7E);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;font-weight:500}
+.chat .m{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px;font-size:13.5px}
+.m div{max-width:85%;padding:8px 12px;border-radius:14px;background:var(--foam)}.m div.me{align-self:flex-end;background:var(--sea);color:var(--on-sea)}
+.chat form{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}.chat input{flex:1;min-width:0;border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:7px 14px}
+
+.ov{position:fixed;inset:0;background:#0a1c2599;backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:16px;z-index:40}.ov.open{display:flex}
+.modal{background:var(--surface);border-radius:22px;width:100%;max-width:470px;max-height:92vh;overflow:auto;padding:24px;animation:rise .25s ease}
+@keyframes rise{from{transform:translateY(14px);opacity:0}}
+.modal h2{font-size:20px;margin-bottom:4px}.modal>p{margin:0 0 16px;color:var(--muted);font-size:13.5px}
+label{display:block;font-size:13px;font-weight:500;margin:12px 0 5px}
+.f{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:9px 12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.drop{display:block;border:1.5px dashed var(--sea);border-radius:14px;padding:16px;text-align:center;color:var(--muted);font-size:13px;margin-top:14px;cursor:pointer}
+.drop:hover,.drop.over{background:var(--foam)}.drop input{display:none}
+.acts{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+.toast{position:fixed;left:50%;top:calc(76px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:#14394A;color:#fff;padding:10px 18px;border-radius:999px;font-size:13.5px;z-index:60;display:flex;gap:8px;align-items:center;box-shadow:0 8px 24px #0a283355;animation:rise .25s ease}
+@media (max-width:860px){nav{display:none}.grid{grid-template-columns:1fr}.moon{width:74px;height:74px;top:24px}.logo small{display:none}.hide-s{display:none}}
+@media (max-width:520px){.card{flex-direction:column}.thumb{width:100%;min-height:64px;flex-direction:row;gap:10px}.pts span.l{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+<symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="up" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 16v4h16v-4"/></symbol>
+<symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+<symbol id="heart" viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></symbol>
+<symbol id="dl" viewBox="0 0 24 24"><path d="M12 4v12M7 11l5 5 5-5M4 20h16"/></symbol>
+<symbol id="eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></symbol>
+<symbol id="phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+<symbol id="send" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+</defs></svg>
+
+<header><div class="wrap bar">
+  <button class="logo" onclick="resetAll()" aria-label="MOONRL – về trang chủ"><span class="mk"></span><span><b>MOONRL</b><small>Lưu trữ bài giảng và đề thi</small></span></button>
+  <nav>
+    <a class="on" onclick="soon('Tự ôn luyện')">Tự ôn luyện</a><a onclick="soon('Góc học tập')">Góc học tập</a><a onclick="soon('Hỏi đáp')">Hỏi đáp</a><a onclick="soon('Góc feedback')">Góc feedback</a><a onclick="soon('Sổ liên lạc')">Sổ liên lạc<i>Mới</i></a>
+  </nav>
+  <div class="sp">
+    <div class="pts" title="MoonPoints"><svg class="i"><use href="#moon"/></svg><b id="pts">1.250</b><span class="l">điểm</span></div>
+    <button class="ic" id="themeBtn" onclick="toggleTheme()" aria-label="Đổi giao diện sáng/tối"><svg class="i"><use href="#moon"/></svg></button>
+    <button class="btn hide-s" onclick="openM('authM')"><svg class="i"><use href="#user"/></svg>Đăng nhập</button>
+    <button class="btn primary" onclick="openM('upM')"><svg class="i"><use href="#up"/></svg><span class="hide-s">Tải bài lên</span></button>
+  </div>
+</div></header>
+
+<section class="hero">
+  <div class="moon" aria-hidden="true"></div>
+  <div class="wrap">
+    <h1>Mỗi bài giảng, mỗi đề thi đều có chỗ để neo lại</h1>
+    <p>Lưu trữ, tìm kiếm và chia sẻ tài liệu từ lớp 1 đến lớp 12 trong một kho yên tĩnh, dễ tìm.</p>
+    <label class="search"><svg class="i"><use href="#search"/></svg><input id="q" type="search" placeholder="Tìm đề thi, bài giảng, môn học…" oninput="S.q=this.value;render()" aria-label="Tìm kiếm"><button class="btn primary" onclick="document.getElementById('list').scrollIntoView({behavior:'smooth'})">Tìm</button></label>
+    <div class="chips" id="lvl"></div>
+  </div>
+  <svg class="wave" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40C150 10 300 10 450 36S750 62 900 36 1100 12 1200 30V70H0z"/></svg>
+</section>
+
+<main class="wrap">
+  <div class="crumb"><button onclick="resetAll()">Trang chủ</button>/<span>Góc học tập</span><span class="tag" id="filt" hidden></span><span style="margin-left:auto">Cập nhật 17/10/2026</span></div>
+  <div class="grid">
+    <section>
+      <div class="head"><h2 style="font-size:22px">Bài giảng và đề thi</h2>
+        <div class="tabs" id="tabs"></div></div>
+      <div id="list" aria-live="polite"></div>
+    </section>
+    <aside>
+      <div class="box"><h3>Chọn theo khối lớp</h3><div class="gl" id="grades"></div></div>
+      <div class="box"><h3>Kho MOONRL</h3><div class="stats"><div><b id="total">0</b><span>Tài liệu</span></div><div><b id="dls">0</b><span>Lượt tải</span></div></div></div>
+      <div class="tip"><b>Mẹo nhỏ:</b> tải lên bài giảng kèm đáp án chi tiết để nhận thêm 50 MoonPoints cho mỗi tài liệu.</div>
+    </aside>
+  </div>
+</main>
+
+<footer><div class="wrap">
+  <div><b>MOONRL</b><p style="max-width:320px">Kho lưu trữ đề thi, bài giảng và tài liệu học tập cho học sinh, giáo viên lớp 1 – 12.</p></div>
+  <div>Email: xynkgai1306@gmail.com<br>Hotline: 0946.307.809<br>© 2026 MOONRL</div>
+</div></footer>
+
+<div class="fab">
+  <button class="ic" onclick="document.getElementById('chat').classList.toggle('open')" aria-label="Hỗ trợ trực tuyến"><svg class="i"><use href="#chat"/></svg></button>
+  <a class="ic" href="tel:0946307809" aria-label="Gọi hotline"><svg class="i"><use href="#phone"/></svg></a>
+</div>
+<div class="chat" id="chat">
+  <div class="t"><span>Hỗ trợ MOONRL</span><button class="ic" style="width:28px;height:28px;background:none;color:#fff;border-color:#ffffff55" onclick="document.getElementById('chat').classList.remove('open')" aria-label="Đóng"><svg class="i"><use href="#x"/></svg></button></div>
+  <div class="m" id="msgs"><div>Xin chào! Bạn cần tìm đề thi hay muốn biết cách đăng bài giảng?</div></div>
+  <form onsubmit="return sendChat(event)"><input id="ci" placeholder="Nhập tin nhắn…" aria-label="Tin nhắn"><button class="btn primary" aria-label="Gửi"><svg class="i"><use href="#send"/></svg></button></form>
+</div>
+
+<div class="ov" id="upM" onclick="if(event.target===this)closeM('upM')"><form class="modal" onsubmit="return addPost(event)">
+  <h2>Tải bài giảng hoặc đề thi lên kho</h2><p>Điền thông tin để mọi người dễ tìm thấy tài liệu của bạn.</p>
+  <label for="fT">Tiêu đề</label><input class="f" id="fT" required placeholder="VD: Đề thi giữa kỳ I Toán 10 năm 2026">
+  <div class="two"><div><label for="fG">Khối lớp</label><select class="f" id="fG"></select></div>
+  <div><label for="fC">Loại tài liệu</label><select class="f" id="fC"><option>Đề thi</option><option>Bài giảng</option><option>Tài liệu</option></select></div></div>
+  <label for="fA">Người đăng</label><input class="f" id="fA" placeholder="Thầy/Cô…">
+  <label for="fD">Mô tả ngắn</label><textarea class="f" id="fD" rows="3" placeholder="Nội dung chính, ma trận đề, phạm vi kiến thức…"></textarea>
+  <label class="drop" id="drop"><input type="file" id="fF" accept=".pdf,.doc,.docx,.ppt,.pptx" onchange="fileSel(this.files[0])"><svg class="i" style="width:26px;height:26px;color:var(--sea)"><use href="#up"/></svg><br><span id="fn">Chọn hoặc kéo thả file PDF, DOCX, PPTX</span></label>
+  <div class="acts"><button type="button" class="btn" onclick="closeM('upM')">Hủy</button><button class="btn primary">Lưu vào kho</button></div>
+</form></div>
+
+<div class="ov" id="authM" onclick="if(event.target===this)closeM('authM')"><form class="modal" style="max-width:380px" onsubmit="return login(event)">
+  <h2>Đăng nhập MOONRL</h2><p>Đăng nhập để lưu tài liệu yêu thích và tích điểm.</p>
+  <label for="aE">Email</label><input class="f" id="aE" type="email" required placeholder="ten@email.com">
+  <label for="aP">Mật khẩu</label><input class="f" id="aP" type="password" required minlength="4">
+  <div class="acts"><button type="button" class="btn" onclick="closeM('authM')">Đóng</button><button class="btn primary">Đăng nhập</button></div>
+</form></div>
+
+<script>
+const LV=['Tất cả','Tiểu học','THCS','THPT'],CT=['Tất cả','Bài giảng','Đề thi','Tài liệu'];
+const lvOf=g=>g<=5?'Tiểu học':g<=9?'THCS':'THPT';
+let P=[
+{id:1,t:'Thi thử giữa học kỳ I miễn phí cho học sinh lớp 1 – 9',a:'Vũ Thị Mỹ Linh',tm:'15:02 17/10/2026',v:452,d:128,g:9,c:'Đề thi',s:'Tổng hợp',desc:'Cổng thi thử giữa học kỳ I mở miễn phí. Thi trực tuyến để biết mình đang ở đâu và ôn đúng trọng tâm.'},
+{id:2,t:'Cách hỗ trợ con học chậm môn Toán và Ngữ văn',a:'Thầy Lê Minh Hoàng',tm:'10:08 17/10/2026',v:310,d:95,g:5,c:'Bài giảng',s:'Toán',desc:'Những phương pháp nhẹ nhàng giúp trẻ tiếp thu chậm dần xây được tư duy logic, không gây áp lực.'},
+{id:3,t:'Bộ 50 đề thi học kỳ I Vật lý 12 có đáp án chi tiết',a:'Cô Nguyễn Thu Trang',tm:'08:30 16/10/2026',v:890,d:412,g:12,c:'Đề thi',s:'Vật lý',desc:'Trắc nghiệm các chuyên đề dao động cơ, sóng cơ và điện xoay chiều, kèm lời giải từng câu.'},
+{id:4,t:'Bài giảng điện tử Tiếng Anh 11 Global Success, Unit 3 – 4',a:'Thầy Trần Bảo Nam',tm:'14:20 15/10/2026',v:215,d:87,g:11,c:'Bài giảng',s:'Tiếng Anh',desc:'Slide PowerPoint có video và trò chơi ngữ pháp cho hai bài đầu học kỳ.'},
+{id:5,t:'Chuyên đề phân số và số thập phân lớp 4 kèm bài tập tự luyện',a:'Cô Phạm Hải Yến',tm:'19:45 14/10/2026',v:164,d:58,g:4,c:'Tài liệu',s:'Toán',desc:'Hệ thống ví dụ từ dễ đến khó, có hình minh họa và đáp án cuối mỗi phần.'},
+{id:6,t:'Đề kiểm tra 15 phút Hóa học 8 chương Oxi – Không khí',a:'Thầy Đặng Quốc Việt',tm:'07:10 13/10/2026',v:233,d:76,g:8,c:'Đề thi',s:'Hóa học',desc:'Bộ 6 đề kiểm tra nhanh, ma trận rõ ràng, phù hợp kiểm tra thường xuyên.'}];
+const S={lv:'Tất cả',c:'Tất cả',g:0,q:''};let pts=1250,liked=new Set(),$=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const ico=n=>`<svg class="i"><use href="#${n}"/></svg>`;
+function render(){
+ $('lvl').innerHTML='<span style="font-size:13px;color:#D3E8E5">Cấp học:</span>'+LV.map(l=>`<button class="chip ${S.lv===l?'on':''}" onclick="S.lv='${l}';S.g=0;render()">${l}</button>`).join('');
+ $('tabs').innerHTML=CT.map(c=>`<button class="${S.c===c?'on':''}" onclick="S.c='${c}';render()">${c}</button>`).join('');
+ $('grades').innerHTML=Array.from({length:12},(_,i)=>i+1).map(g=>`<button class="${S.g===g?'on':''}" onclick="S.g=S.g===${g}?0:${g};S.lv='Tất cả';render()"><span>Lớp ${g}</span><small>${P.filter(p=>p.g===g).length} tài liệu · ${lvOf(g)}</small></button>`).join('');
+ const q=S.q.trim().toLowerCase();
+ const L=P.filter(p=>(S.lv==='Tất cả'||lvOf(p.g)===S.lv)&&(S.c==='Tất cả'||p.c===S.c)&&(!S.g||p.g===S.g)&&(!q||(p.t+p.desc+p.s).toLowerCase().includes(q)));
+ $('list').innerHTML=L.length?L.map(p=>`<article class="card"><div class="thumb"><b>${p.g}</b><span>${esc(p.s)}</span></div><div style="flex:1;min-width:0">
+  <div class="meta"><span>${ico('user')} ${esc(p.a)}</span><span>${ico('clock')} ${esc(p.tm)}</span></div>
+  <h3 onclick="view(${p.id})">${esc(p.t)}</h3><p>${esc(p.desc)}</p>
+  <div class="foot"><div class="st"><span class="badge">${p.c}</span><span>${ico('eye')}${p.v}</span><span>${ico('dl')}${p.d} lượt tải</span></div>
+  <div><button class="like ${liked.has(p.id)?'on':''}" onclick="like(${p.id})" aria-label="Yêu thích">${ico('heart')}</button><button class="btn" onclick="dl(${p.id})">${ico('dl')}Tải về</button></div></div></div></article>`).join('')
+ :`<div class="empty"><p>Chưa có tài liệu phù hợp với bộ lọc này.</p><button class="btn primary" onclick="resetAll()">Bỏ bộ lọc</button></div>`;
+ const f=[S.lv!=='Tất cả'&&S.lv,S.g&&'Lớp '+S.g,S.c!=='Tất cả'&&S.c].filter(Boolean);
+ $('filt').hidden=!f.length;$('filt').textContent=f.join(' + ');
+ $('total').textContent=(1414+P.length).toLocaleString('vi-VN');$('dls').textContent=(89400+P.reduce((a,p)=>a+p.d,0)-P.slice(0,6).reduce((a,p)=>a+p.d,0)).toLocaleString('vi-VN');
+}
+function resetAll(){S.lv='Tất cả';S.c='Tất cả';S.g=0;S.q='';$('q').value='';render();scrollTo({top:0,behavior:'smooth'})}
+function toast(m){const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.innerHTML=ico('moon')+'<span>'+m+'</span>';document.body.append(t);setTimeout(()=>t.remove(),2800)}
+const soon=n=>toast(n+' sẽ sớm ra mắt');
+function view(id){const p=P.find(x=>x.id===id);p.v++;render();toast('Đang mở: '+esc(p.t.slice(0,36))+'…')}
+function dl(id){const p=P.find(x=>x.id===id);p.d++;render();toast('Đang chuẩn bị file tải về')}
+function like(id){liked.has(id)?liked.delete(id):liked.add(id);render()}
+function openM(id){$(id).classList.add('open')}function closeM(id){$(id).classList.remove('open')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.ov.open').forEach(o=>o.classList.remove('open'))});
+$('fG').innerHTML=Array.from({length:12},(_,i)=>`<option value="${i+1}" ${i==9?'selected':''}>Lớp ${i+1}</option>`).join('');
+function fileSel(f){if(f)$('fn').textContent=f.name+' ('+(f.size/1048576).toFixed(1)+' MB)'}
+const dr=$('drop');['dragover','dragenter'].forEach(e=>dr.addEventListener(e,x=>{x.preventDefault();dr.classList.add('over')}));
+['dragleave','drop'].forEach(e=>dr.addEventListener(e,x=>{x.preventDefault();dr.classList.remove('over');if(e==='drop'&&x.dataTransfer.files[0]){$('fF').files=x.dataTransfer.files;fileSel(x.dataTransfer.files[0])}}));
+function addPost(e){e.preventDefault();
+ P.unshift({id:Date.now(),t:$('fT').value,a:$('fA').value||'Giáo viên MOONRL',tm:'Vừa xong',v:1,d:0,g:+$('fG').value,c:$('fC').value,s:'Mới đăng',desc:$('fD').value||'Tài liệu vừa được lưu vào kho MOONRL.'});
+ e.target.reset();$('fn').textContent='Chọn hoặc kéo thả file PDF, DOCX, PPTX';closeM('upM');resetAll();pts+=50;$('pts').textContent=pts.toLocaleString('vi-VN');toast('Đã lưu vào kho. Bạn nhận thêm 50 MoonPoints');return false}
+function login(e){e.preventDefault();closeM('authM');toast('Đăng nhập thành công');return false}
+function sendChat(e){e.preventDefault();const i=$('ci'),v=i.value.trim();if(!v)return false;const m=$('msgs');
+ m.insertAdjacentHTML('beforeend',`<div class="me">${esc(v)}</div>`);i.value='';m.scrollTop=m.scrollHeight;
+ setTimeout(()=>{m.insertAdjacentHTML('beforeend','<div>Cảm ơn bạn! Nhân viên MOONRL sẽ phản hồi trong ít phút. Cần gấp, hãy gọi 0946.307.809.</div>');m.scrollTop=m.scrollHeight},700);return false}
+function toggleTheme(){const r=document.documentElement,d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+ r.dataset.theme=d?'light':'dark';$('themeBtn').innerHTML=ico(d?'moon':'sun')}
+render();
+</script>
+</body>
+</html>
